@@ -1,5 +1,6 @@
 
 class Student
+  
   attr_accessor :id, :name, :grade
 
   def self.new_from_db(row)
@@ -69,7 +70,7 @@ class Student
     sql = <<-SQL
       SELECT *
       FROM students
-      WHERE grade = ?
+      WHERE grade == ?
     SQL
     DB[:conn].execute(sql, 9)
   end
@@ -114,9 +115,9 @@ class Student
     sql = <<-SQL
       SELECT *
       FROM students
-      WHERE grade  == 10
+      WHERE grade  == ?
     SQL
-    DB[:conn].execute(sql).collect do |row|
+    DB[:conn].execute(sql, x).collect do |row|
       self.new_from_db(row)
     end
   end
